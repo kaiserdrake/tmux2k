@@ -69,6 +69,7 @@ declare -A plugin_colors=(
     ["uptime"]="light_blue text"
     ["weather"]="orange text"
     ["window_list"]="black blue"
+    ["todotxt"]="red text"
     ["custom"]="red text"
 )
 
@@ -334,13 +335,13 @@ window_list() {
         tmux set-window-option -g window-status-format \
             "#[fg=${bg_alt},bg=${wbg}]${wl_sep}#[bg=${bg_alt}]${flags}#[fg=${white}]${spacer}${window_list_format}${spacer}#[fg=${bg_alt},bg=${wbg}]${wr_sep}"
     else
-        tmux set-window-option -g window-status-current-format "#[fg=${wbg},bg=${wfg}] ${window_list_current_format}${spacer}${current_flags} "
-        tmux set-window-option -g window-status-format "#[fg=${white},bg=${bg_alt}] ${window_list_format}${spacer}${flags} "
+        tmux set-window-option -g window-status-current-format "#[fg=${white},bg=${wfg}] ${window_list_current_format}${spacer}${current_flags} "
+        tmux set-window-option -g window-status-format "#[fg=${gray},bg=${bg_alt}] ${window_list_format}${spacer}${flags} "
     fi
 
     if $icons_only; then
-        tmux set-window-option -g window-status-current-format "#[fg=${wbg},bg=${wfg}]${spacer}${window_list_current_format}${spacer}"
-        tmux set-window-option -g window-status-format "#[fg=${white},bg=${wfg}]${spacer}${window_list_format}${spacer}"
+        tmux set-window-option -g window-status-current-format "#[fg=${white},bg=${wfg}]${spacer}${window_list_current_format}${spacer}"
+        tmux set-window-option -g window-status-format "#[fg=${gray},bg=${wfg}]${spacer}${window_list_format}${spacer}"
     fi
 }
 
