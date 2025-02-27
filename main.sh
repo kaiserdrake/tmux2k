@@ -13,6 +13,7 @@ wl_sep=$(get_tmux_option "@tmux2k-window-list-left-sep" )
 wr_sep=$(get_tmux_option "@tmux2k-window-list-right-sep" )
 window_list_alignment=$(get_tmux_option "@tmux2k-window-list-alignment" 'absolute-centre')
 window_list_format=$(get_tmux_option "@tmux2k-window-list-format" '#I:#W')
+window_list_current_format=$(get_tmux_option "@tmux2k-window-list-current-format" '#I:#W')
 window_list_flags=$(get_tmux_option "@tmux2k-window-list-flags" true)
 window_list_compact=$(get_tmux_option "@tmux2k-window-list-compact" false)
 IFS=' ' read -r -a lplugins <<<"$(get_tmux_option '@tmux2k-left-plugins' 'session git cwd')"
@@ -329,16 +330,16 @@ window_list() {
 
     if $show_powerline; then
         tmux set-window-option -g window-status-current-format \
-            "#[fg=${wfg},bg=${wbg}]${wl_sep}#[bg=${wfg}]${current_flags}#[fg=${wbg}]${spacer}${window_list_format}${spacer}#[fg=${wfg},bg=${wbg}]${wr_sep}"
+            "#[fg=${wfg},bg=${wbg}]${wl_sep}#[bg=${wfg}]${current_flags}#[fg=${wbg}]${spacer}${window_list_current_format}${spacer}#[fg=${wfg},bg=${wbg}]${wr_sep}"
         tmux set-window-option -g window-status-format \
             "#[fg=${bg_alt},bg=${wbg}]${wl_sep}#[bg=${bg_alt}]${flags}#[fg=${white}]${spacer}${window_list_format}${spacer}#[fg=${bg_alt},bg=${wbg}]${wr_sep}"
     else
-        tmux set-window-option -g window-status-current-format "#[fg=${wbg},bg=${wfg}] ${window_list_format}${spacer}${current_flags} "
+        tmux set-window-option -g window-status-current-format "#[fg=${wbg},bg=${wfg}] ${window_list_current_format}${spacer}${current_flags} "
         tmux set-window-option -g window-status-format "#[fg=${white},bg=${bg_alt}] ${window_list_format}${spacer}${flags} "
     fi
 
     if $icons_only; then
-        tmux set-window-option -g window-status-current-format "#[fg=${wbg},bg=${wfg}]${spacer}${window_list_format}${spacer}"
+        tmux set-window-option -g window-status-current-format "#[fg=${wbg},bg=${wfg}]${spacer}${window_list_current_format}${spacer}"
         tmux set-window-option -g window-status-format "#[fg=${white},bg=${wfg}]${spacer}${window_list_format}${spacer}"
     fi
 }
